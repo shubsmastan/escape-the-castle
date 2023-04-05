@@ -1,0 +1,142 @@
+*,
+*::before,
+*::after {
+  font-family: MedievalSharp, sans-serif;
+  font-size: 15px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #999999;
+}
+
+.game-container {
+  width: 900px;
+  height: auto;
+  max-width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 2px;
+}
+
+.direction {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+button,
+#submit {
+  background-color: #999999;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+div {
+  margin: 6px;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+#room-connections {
+  display: flex;
+  justify-content: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 400px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border-radius: 5px;
+  padding: 10px 30px;
+  width: 80%;
+  height: auto;
+  position: relative;
+}
+
+#restart-modal img,
+#message-modal img {
+  margin-top: 15px;
+  height: 100px;
+  width: auto;
+}
+
+.modal-footer {
+  margin: 20px 0px;
+}
+
+.header img {
+  height: 50px;
+  width: auto;
+}
+
+#cast,
+#give {
+  display: none;
+}
+
+a {
+  color: darkblue;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+footer > button {
+  font-size: 12px;
+  color: darkblue;
+  background-color: none;
+  margin: 5px 10px;
+}
+
+footer > button:hover {
+  text-decoration: underline;
+}
+
+li {
+  text-align: left;
+  list-style: none;
+}
+
+.attributions-list,
+.instructions-list {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .modal-content {
+    width: 30%;
+    height: auto;
+  }
+}
