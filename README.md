@@ -1,6 +1,6 @@
 # Escape the Castle
 
-A simple text RPG adventure game. You are trapped in a castle dungeon alone with no hope for survival. Can you escape? [Live preview](https://icecoffee426.github.io/escape-the-castle).
+A simple text RPG adventure game. You are trapped in a castle dungeon alone with no hope for survival. Can you escape? [Live preview](https://shubsmastan.github.io/escape-the-castle/).
 
 ## Description
 
@@ -12,7 +12,7 @@ To play the game, type any of the valid actions in any case.
 
 ## Author
 
-[@IceCoffee426](https://github.com/icecoffee426)
+[@IceCoffee426](https://github.com/shubsmastan)
 
 ## Version History
 
