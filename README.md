@@ -12,7 +12,7 @@ To play the game, type any of the valid actions in any case.
 
 ## Author
 
-[@IceCoffee426](https://github.com/shubsmastan)
+[@ShubsMastan](https://github.com/shubsmastan)
 
 ## Version History
 
