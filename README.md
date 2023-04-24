@@ -1,6 +1,7 @@
 # Escape the Castle
 
-A simple text RPG adventure game. You are trapped in a castle dungeon alone with no hope for survival. Can you escape? [Live preview](https://shubsmastan.github.io/escape-the-castle/).
+[Live preview](https://shubsmastan.github.io/escape-the-castle/).<br /><br />
+A simple text RPG adventure game. You are trapped in a castle dungeon alone with no hope for survival. Can you escape?
 
 ## Description
 
