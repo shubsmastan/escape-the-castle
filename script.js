@@ -1,188 +1,8 @@
-class Room {
-  constructor(name) {
-    this.name = name;
-    this.description = null;
-    this.linkedRooms = new Map();
-    this.character = null;
-    this.item = null;
-    this.type = "room";
-    this.image = "";
-  }
+import { dungeon } from "./src/room.js";
+import { alertMessage, gameOver } from "./src/functions.js";
 
-  setName(name) {
-    this.name = name;
-  }
-
-  setDescription(description) {
-    this.description = description;
-  }
-
-  linkRoom(direction, room) {
-    this.linkedRooms.set(direction, room);
-  }
-
-  setCharacter(character) {
-    this.character = character;
-  }
-
-  setItem(item) {
-    this.item = item;
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-}
-
-class Item {
-  constructor(name) {
-    this.name = name;
-    this.description = null;
-    this.type = "item";
-    this.image = "";
-  }
-
-  setName(name) {
-    this.name = name;
-  }
-
-  setDescription(description) {
-    this.description = description;
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-}
-
-class Weapon extends Item {
-  constructor(name) {
-    super(name);
-    this.description = null;
-    this.spells = null;
-    this.type = "weapon";
-    this.image = "";
-  }
-
-  setSpells(spellList) {
-    this.spells = spellList.split(", ");
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-}
-
-class Character {
-  constructor(name) {
-    this.name = name;
-    this.description = null;
-    this.dialogue = null;
-    this.awake = true;
-    this.type = "character";
-    this.image = "";
-  }
-
-  setName(name) {
-    this.name = name;
-  }
-
-  setDescription(description) {
-    this.description = description;
-  }
-
-  setDialogue(dialogue) {
-    this.dialogue = dialogue;
-  }
-
-  setSleep() {
-    this.awake = false;
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-}
-
-class Friend extends Character {
-  constructor(name) {
-    super(name);
-    this.description = null;
-    this.dialogue = null;
-    this.awake = true;
-    this.gift = null;
-    this.secret = null;
-    this.type = "friend";
-    this.image = "";
-  }
-
-  setGift(gift) {
-    this.gift = gift;
-  }
-
-  setSecret(secret) {
-    this.secret = secret;
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-}
-
-class Enemy extends Character {
-  constructor(name) {
-    super(name);
-    this.description = null;
-    this.dialogue = null;
-    this.awake = true;
-    this.weakness = null;
-    this.killed = false;
-    this.type = "enemy";
-    this.image = "";
-  }
-
-  setWeakness(spell) {
-    this.weakness = spell;
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-}
-
-class Boss extends Enemy {
-  constructor(name) {
-    super(name);
-    this.description = null;
-    this.dialogue = null;
-    this.awake = true;
-    this.weakness = null;
-    this.killed = false;
-    this.controlled = false;
-    this.controlItem = null;
-    this.type = "boss";
-    this.image = "";
-  }
-
-  setControlled() {
-    this.controlled = true;
-  }
-
-  setControlItem(item) {
-    this.controlItem = item;
-  }
-
-  setImage(link) {
-    this.image = link;
-  }
-}
-
-const submitButton = document.getElementById("submit");
-const actionBox = document.getElementById("action");
+export const submitButton = document.getElementById("submit");
+export const actionBox = document.getElementById("action");
 submitButton.addEventListener("click", submitAction);
 actionBox.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
@@ -190,180 +10,19 @@ actionBox.addEventListener("keypress", function (e) {
   }
 });
 
-const messageModal = document.getElementById("message-modal");
-const messageText = document.getElementById("message");
-const modalImg = document.getElementById("modal-image");
-const inputModal = document.getElementById("input-modal");
-
-const closeButton = document.getElementById("closebtn");
-const restartModal = document.getElementById("restart-modal");
-const restartText = document.getElementById("restart");
-const restartButton = document.getElementById("restartbtn");
-
-const castBox = document.getElementById("cast");
-const spellPrompt = document.getElementById("spell-prompt");
-const spellInput = document.getElementById("input-spell");
-const enterSpell = document.getElementById("enter-spell");
-
-const giveBox = document.getElementById("give");
-const itemPrompt = document.getElementById("item-prompt");
-const itemInput = document.getElementById("input-item");
-const enterItem = document.getElementById("enter-item");
-
-const attributionsList = document.getElementById("attributions-list");
-const instructionsList = document.getElementById("instructions-list");
-
-const roomName = document.getElementById("room-name");
-const roomText = document.getElementById("room-description");
-const roomConnections = document.querySelectorAll(".direction");
-const characterText = document.getElementById("character");
-const itemText = document.getElementById("item");
-const inventory = document.getElementById("inventory");
-const spells = document.getElementById("spells");
-
-restartButton.onclick = function () {
-  location.reload();
-};
-
-closeButton.addEventListener("click", function () {
-  messageModal.style.display = "none";
-  actionBox.focus();
-});
-
 window.onclick = function (e) {
+  const messageModal = document.getElementById("message-modal");
   if (e.target === messageModal) {
     messageModal.style.display = "none";
   }
 };
 
-const dungeon = new Room("dungeon");
-dungeon.setDescription(
-  "You awaken locked up in a cramped cell and can barely move. Your muscles ache and you feel uncomfortable as you see the rotting bones littering the corner. You think to yourself that there must be a way to escape."
-);
-dungeon.setImage("./images/dungeon.png");
-
-const kitchen = new Room("kitchen");
-kitchen.setDescription(
-  "The large, cold room is crowded with cooking equipment but is completely deserted. A large pot of stew boils on a fire in the corner, unattended. The hunger consuming you, you take a few sips gratefully."
-);
-kitchen.setImage("./images/kitchen.png");
-
-const dininghall = new Room("dining hall");
-dininghall.setDescription(
-  "This is where the lords of the castle dine. A long, imposing table is in the centre of the room. Gilded candlesticks and silver plates decorate the table. Memories come back to you of dining here as a youngster, before the troubles with the Queen."
-);
-dininghall.setImage("./images/dininghall.png");
-
-const ballroom = new Room("ballroom");
-ballroom.setDescription(
-  "You enter the vast room and see chairs lining the perimeter. An ornate chandelier hangs from the ceiling. On special occasions, this room would be cleaned and decorated to perfection. Today, however, it is dank and dusty."
-);
-ballroom.setImage("./images/ballroom.png");
-
-const courtyard = new Room("courtyard");
-courtyard.setDescription(
-  "The beautiful castle courtyard was your and your sister's personal playground when you were young. Brightly coloured flowers grow wherever you look and a large oak tree stands solitary in the centre."
-);
-courtyard.setImage("./images/courtyard.png");
-
-const throneroom = new Room("throne room");
-throneroom.setDescription(
-  "You stand at the end of a long, imposing chamber: the throne room of the Queen herself. From the galleries above, the lords of the kingdom watch to see what actions you will take. You get the feeling there is only one way out..."
-);
-throneroom.setImage("./images/throneroom.png");
-
-dungeon.linkRoom("south", kitchen);
-kitchen.linkRoom("north", dungeon);
-kitchen.linkRoom("east", dininghall);
-dininghall.linkRoom("west", kitchen);
-dininghall.linkRoom("south", ballroom);
-ballroom.linkRoom("north", dininghall);
-ballroom.linkRoom("west", courtyard);
-ballroom.linkRoom("south", throneroom);
-courtyard.linkRoom("east", ballroom);
-throneroom.linkRoom("north", ballroom);
-
-const guard = new Enemy("Pod");
-guard.setDescription(
-  "The slightly odd jailer that watches over the prisons. Currently, he is asleep on guard duty."
-);
-guard.setImage("./images/guard.png");
-guard.setDialogue("You will not escape!");
-guard.setWeakness("sleep");
-guard.setSleep();
-dungeon.setCharacter(guard);
-
-const peasant = new Friend("Catarina");
-peasant.setDescription(
-  "A common peasant who works in the caslte as a maid. She is going about her duties."
-);
-peasant.setImage("./images/peasant.png");
-peasant.setDialogue(
-  "Tread carefully! A powerful mage is guarding in the ballroom blocking entrance to the throne room."
-);
-dininghall.setCharacter(peasant);
-
-const mage = new Enemy("Daiv");
-mage.setDescription(
-  "A powerful mage who gets in your way to prevent you leaving. He tries to curse you."
-);
-mage.setImage("./images/mage.png");
-mage.setDialogue("You will not pass!");
-mage.setWeakness("fire");
-ballroom.setCharacter(mage);
-
-const queen = new Enemy("Queen Nahaerys");
-queen.setDescription(
-  "The tyrant who rules the kingdom. Your loathed sister, who imprisoned you and took the throne that was rightfully yours."
-);
-queen.setImage("./images/queen.png");
-queen.setDialogue("You will not take my crown!");
-queen.setWeakness("ice");
-throneroom.setCharacter(queen);
-
-const dragon = new Boss("Brion");
-dragon.setDescription(
-  "The dreaded pet dragon, controlled only by the monarch of the kingdom. The one who tames Brion could control the entire kingdom."
-);
-dragon.setImage("./images/dragon.png");
-dragon.setDialogue("....");
-courtyard.setCharacter(dragon);
-
-const key = new Item("key");
-key.setDescription(
-  "This key might just open your cell and allow you to escape."
-);
-key.setImage("./images/key.png");
-dungeon.setItem(key);
-
-const staff = new Weapon("staff");
-staff.setDescription(
-  "A simple, yet extremely deadly, mage's staff that allows you to cast basic spells."
-);
-staff.setImage("./images/staff.png");
-staff.setSpells("fire, ice, lightning, sleep");
-kitchen.setItem(staff);
-
-const candlestick = new Item("candlestick");
-candlestick.setDescription("A valuable looking gilded gold candlestick.");
-candlestick.setImage("./images/candlestick.png");
-dininghall.setItem(candlestick);
-peasant.setGift(candlestick);
-peasant.setSecret("The mages hereabouts are afraid of fire magic.");
-
-const crown = new Item("crown");
-crown.setDescription(
-  "The enchanted crown worn by the ruler of the kingdom. Legends say it has magical properties."
-);
-crown.setImage("./images/crown.png");
-throneroom.setItem(crown);
-dragon.setControlItem(crown);
-
 let room = dungeon;
 let safeToLeave = true;
 let itemList = [];
-let numberOfItems = 0;
 let spellList = [];
+let numberOfItems = 0;
+
 setRoom(room);
 actionBox.focus();
 
@@ -372,7 +31,7 @@ function submitAction() {
   const item = room.item;
   const character = room.character;
   const directions = ["north", "east", "west", "south"];
-
+  const inventory = document.getElementById("inventory");
   if (directions.includes(action) && room.linkedRooms.get(action)) {
     if (room === dungeon && !inventory.innerText.includes("key")) {
       alertMessage(
@@ -449,6 +108,8 @@ function submitAction() {
 }
 
 function setRoom(room) {
+  const roomName = document.getElementById("room-name");
+  const roomText = document.getElementById("room-description");
   roomName.innerText = `You are in the ${room.name}.`;
   roomText.innerText = room.description;
   const roomImg = document.getElementById("room-image");
@@ -458,7 +119,7 @@ function setRoom(room) {
   img.style.height = "40px";
   img.style.width = "auto";
   roomImg.appendChild(img);
-
+  const roomConnections = document.querySelectorAll(".direction");
   roomConnections.forEach((node) => {
     const direction = node.dataset.direction;
     const validDirections = Array.from(room.linkedRooms.keys());
@@ -473,6 +134,7 @@ function setRoom(room) {
   const item = room.item;
   const itemImg = document.getElementById("item-image");
   itemImg.innerText = "";
+  const itemText = document.getElementById("item");
   if (item) {
     itemText.innerText = `You see something: a ${item.name}. ${item.description}`;
     const img = document.createElement("img");
@@ -485,6 +147,7 @@ function setRoom(room) {
   const character = room.character;
   const charImg = document.getElementById("char-image");
   charImg.innerText = "";
+  const characterText = document.getElementById("character");
   if (character) {
     characterText.innerText = `Someone is here: ${character.name}. ${character.description}`;
     const img = document.createElement("img");
@@ -501,18 +164,22 @@ function setRoom(room) {
   } else characterText.innerText = "";
 }
 
-function getItem(item) {
+export function getItem(item) {
+  const inventory = document.getElementById("inventory");
   itemList.push(item.name);
   inventory.innerText = `Inventory: ${itemList.join(", ")}`;
+  const itemText = document.getElementById("item");
   itemText.innerText = "";
   numberOfItems += 1;
   room.item = null;
   alertMessage(`The ${item.name} was added to your inventory.`, item.image);
-  closeButton.focus();
+
   const itemImg = document.getElementById("item-image");
   itemImg.innerText = "";
   if (item.type === "weapon") {
-    p = document.createElement("p");
+    const spells = document.getElementById("spells");
+    const messageText = document.getElementById("message");
+    const p = document.createElement("p");
     messageText.appendChild(p);
     item.spells.forEach((spell) => {
       spellList.push(spell);
@@ -524,7 +191,7 @@ function getItem(item) {
   }
 }
 
-function talkTo(character) {
+export function talkTo(character) {
   if (character.type === "friend") {
     alertMessage(
       `${character.name} says: "${character.dialogue}"`,
@@ -545,7 +212,10 @@ function talkTo(character) {
     );
 }
 
-function giveItem(character, gift) {
+export function giveItem(character, gift) {
+  const inputModal = document.getElementById("input-modal");
+  const giveBox = document.getElementById("give");
+  const inventory = document.getElementById("inventory");
   if (gift === "") return;
   else if (!inventory.innerText.includes(gift)) {
     inputModal.style.display = "none";
@@ -577,8 +247,8 @@ function giveItem(character, gift) {
   } else if (character.type === "boss" && gift === character.controlItem.name) {
     inputModal.style.display = "none";
     giveBox.style.display = "none";
-    img = document.getElementById("end");
-    end["src"] = throneroom.image;
+    const img = document.getElementById("end");
+    img["src"] = "./images/throneroom.png";
     gameOver(
       `${character.name} sees the enchanted crown and cowers before you. You have tamed the dragon and it will obey your commands. You take over the kingdom as the rightful ruler. Your journey ends in victory.`
     );
@@ -591,9 +261,12 @@ function giveItem(character, gift) {
     return;
   }
   removeItem(gift);
+  actionBox.focus();
 }
 
-function doBattle(character, spell) {
+export function doBattle(character, spell) {
+  const inputModal = document.getElementById("input-modal");
+  const castBox = document.getElementById("cast");
   if (character.type === "boss") {
     inputModal.style.display = "none";
     castBox.style.display = "none";
@@ -610,6 +283,7 @@ function doBattle(character, spell) {
     safeToLeave = true;
     const charImg = document.getElementById("char-image");
     charImg.innerText = "";
+    const characterText = document.getElementById("character");
     characterText.innerText = "";
     inputModal.style.display = "none";
     castBox.style.display = "none";
@@ -619,6 +293,7 @@ function doBattle(character, spell) {
       `./images/${spell}.png`
     );
   } else if (spells.innerText.includes(spell) && spell !== character.weakness) {
+    const inputModal = document.getElementById("input-modal");
     inputModal.style.display = "none";
     castBox.style.display = "none";
     gameOver(
@@ -632,17 +307,12 @@ function doBattle(character, spell) {
     );
 }
 
-function alertMessage(message, imageLink) {
-  attributionsList.style.display = "none";
-  instructionsList.style.display = "none";
-  messageText.innerText = message;
-  modalImg["src"] = imageLink;
-  messageModal.style.display = "block";
-  closeButton.focus();
-  actionBox.value = "";
-}
-
-function inputSpell() {
+export function inputSpell() {
+  const castBox = document.getElementById("cast");
+  const spellPrompt = document.getElementById("spell-prompt");
+  const spellInput = document.getElementById("input-spell");
+  const enterSpell = document.getElementById("enter-spell");
+  const inputModal = document.getElementById("input-modal");
   inputModal.style.display = "block";
   castBox.style.display = "block";
   spellPrompt.innerText = `Choose a spell to cast. Known spells: ${spellList.join(
@@ -661,7 +331,12 @@ function inputSpell() {
   });
 }
 
-function inputItem() {
+export function inputItem() {
+  const itemPrompt = document.getElementById("item-prompt");
+  const itemInput = document.getElementById("input-item");
+  const enterItem = document.getElementById("enter-item");
+  const giveBox = document.getElementById("give");
+  const inputModal = document.getElementById("input-modal");
   inputModal.style.display = "block";
   giveBox.style.display = "block";
   itemPrompt.innerText = `Choose an item to give. Inventory: ${itemList.join(
@@ -680,38 +355,12 @@ function inputItem() {
   });
 }
 
-function removeItem(trash) {
-  for (i = 0; i < itemList.length; i++) {
+export function removeItem(trash) {
+  const inventory = document.getElementById("inventory");
+  for (let i = 0; i < itemList.length; i++) {
     if (itemList[i] === trash) {
-      itemList.splice(i);
+      itemList.splice(i, 1);
       inventory.innerText = `Inventory: ${itemList.join(", ")}`;
     }
   }
 }
-
-function gameOver(message) {
-  restartText.innerText = message;
-  restartModal.style.display = "block";
-  restartButton.focus();
-}
-
-const attributions = document.getElementById("attributions");
-const instructions = document.getElementById("instructions");
-
-attributions.onclick = function () {
-  messageText.innerText = "";
-  instructionsList.style.display = "none";
-  attributionsList.style.display = "block";
-  messageModal.style.display = "block";
-  modalImg["src"] = "";
-  closeButton.focus();
-};
-
-instructions.onclick = function () {
-  messageText.innerText = "";
-  attributionsList.style.display = "none";
-  instructionsList.style.display = "block";
-  messageModal.style.display = "block";
-  modalImg["src"] = "";
-  closeButton.focus();
-};
